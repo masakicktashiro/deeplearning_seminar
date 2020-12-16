@@ -185,6 +185,10 @@ class SimpleGRUDecoder(nn.Module):
             state.size = (bs, hidden_state
             )
         """
+        is_1d = False
+        if len(oracle.shape) < 2:
+            is_1d = True
+            oracle = oracle.unsqueeze(dim=-1)
         oracle = self.embedding(oracle)
         hidden_state = state["hidden"]
         if hidden_state.size(0) != self.num_layers:
@@ -198,6 +202,8 @@ class SimpleGRUDecoder(nn.Module):
         output, hidden_state = self.gru(oracle, hidden_state)
         pred = self.linear(output)
         state["hidden"] = hidden_state
+        if is_1d:
+            pred = pred.squeeze(dim=1)
         return self.log_softmax(pred), state
 
 class SimpleLSTMEncoder(nn.Module):

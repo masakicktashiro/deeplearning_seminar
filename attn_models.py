@@ -39,6 +39,10 @@ class AttnGRUDecoder(nn.Module):
             output.size = (bs, length, vocab_size)
         state : Dict[str, torch.Tensor]
         """
+        is_1d = False
+        if len(oracle.shape) < 2:
+            is_1d = True
+            oracle = oracle.unsqueeze(dim=-1)
         last_pred = oracle[:, :1]
         outputs = []
         hidden_state = state["hidden"]
@@ -57,6 +61,8 @@ class AttnGRUDecoder(nn.Module):
             outputs.append(output)
             last_pred = output.argmax(dim=-1)
         outputs = torch.cat(outputs, dim=1)
+        if is_1d:
+            outputs = outputs.squeeze(dim=1)
         return outputs, state
 
 class AttentionLayer(nn.Module):
