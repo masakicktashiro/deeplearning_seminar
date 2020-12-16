@@ -17,8 +17,8 @@ python train.py
 ```
 
 ## References
-[https://github.com/pytorch/fairseq/tree/master/examples/translation](https://github.com/pytorch/fairseq/tree/master/examples/translation)
-[https://github.com/KobayashiNaoki/Seq2Seq_DeepLearningStudy2019](https://github.com/KobayashiNaoki/Seq2Seq_DeepLearningStudy2019)
-[https://github.com/bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)
+[https://github.com/pytorch/fairseq/tree/master/examples/translation](https://github.com/pytorch/fairseq/tree/master/examples/translation)  
+[https://github.com/KobayashiNaoki/Seq2Seq_DeepLearningStudy2019](https://github.com/KobayashiNaoki/Seq2Seq_DeepLearningStudy2019)  
+[https://github.com/bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)  
 
 
