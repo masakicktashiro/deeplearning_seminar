@@ -20,6 +20,7 @@ class AttnGRUDecoder(nn.Module):
         self.log_softmax = nn.LogSoftmax(dim=-1)
         self.num_layers = num_layers
         self.dropout = nn.Dropout(dropout)
+        self.log_softmax = nn.LogSoftmax(dim=-1)
 
     def forward(self, oracle, state, teacher_forcing_ratio=0.5):
         """
@@ -50,11 +51,13 @@ class AttnGRUDecoder(nn.Module):
             hidden_state = state["hidden"]
             context = torch.einsum("ijk,ij->ijk", state["encoder_output"], attn).sum(dim=1, keepdims=True)
             output, hidden_state = self.rnn(torch.cat([input, context], dim=-1), hidden_state)
-            pred = self.linear(torch.cat([output, context], dim=-1))
+            output = self.linear(torch.cat([output, context], dim=-1))
+            output = self.log_softmax(output)
             state["hidden"] = hidden_state
             outputs.append(output)
             last_pred = output.argmax(dim=-1)
-        return pred, state
+        outputs = torch.cat(outputs, dim=1)
+        return outputs, state
 
 class AttentionLayer(nn.Module):
     
