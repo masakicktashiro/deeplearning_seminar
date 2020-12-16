@@ -1,0 +1,8 @@
+*.ipynb
+.ipynb_checkpoints
+*.sh
+data
+trained_models
+outputs
+logs
+__pycache__/
